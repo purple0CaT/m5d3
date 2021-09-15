@@ -47,3 +47,13 @@ export const postMiddleware = [
     .notEmpty()
     .withMessage("content is a mandatory field!"),
 ];
+// PUT CHECKER
+export const putMiddleware = (req, res, next) => {
+  const posts = getPost();
+  const check = posts.some((post) => post._id == req.params.postId);
+  if (check) {
+    next();
+  } else {
+    next(createHttpError(400, "Bad request, no such post!"));
+  }
+};

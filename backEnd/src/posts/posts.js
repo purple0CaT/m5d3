@@ -4,7 +4,11 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import createHttpError from "http-errors";
 import { validationResult } from "express-validator";
-import { getIdMiddleware, postMiddleware } from "./checkMiddleware.js";
+import {
+  getIdMiddleware,
+  postMiddleware,
+  putMiddleware,
+} from "./checkMiddleware.js";
 import uniqid from "uniqid";
 import { send } from "process";
 
@@ -49,14 +53,45 @@ postStirve.post("/", postMiddleware, (req, res, next) => {
       const newPost = { ...req.body, _id: uniqid(), createdAt: new Date() };
       const posts = getPost();
       posts.push(newPost);
+      //   save send
       writePost(posts);
-      console.log(newPost);
-      res.send(newPost);
+      res.status(200).send(newPost);
     } catch (error) {
       next(createHttpError(400, "Bad request"));
     }
   }
 });
-
+// PUT
+postStirve.put("/:postId", putMiddleware, postMiddleware, (req, res, next) => {
+  console.log("start");
+  const errorList = validationResult(req);
+  if (!errorList.isEmpty()) {
+    next(createHttpError(400, { errorList }));
+  } else {
+    try {
+      const posts = getPost();
+      const index = posts.findIndex((post) => post._id == req.params.postId);
+      const updatePost = { ...posts[index], ...req.body };
+      posts[index] = updatePost;
+      console.log(posts);
+      //   save send
+      writePost(posts);
+      res.status(200).send(updatePost);
+    } catch (err) {
+      next(createHttpError(406, "Not Acceptable"));
+    }
+  }
+});
+// DELETE CHECKER
+postStirve.delete("/:postId", putMiddleware, (req, res, next) => {
+  try {
+    const posts = getPost();
+    const postFiltered = posts.filter((post) => post._id != req.params.postId);
+    writePost(postFiltered);
+    res.status(200).send("Successfuly deleted");
+  } catch (err) {
+    next(createHttpError(406, "Not Acceptable"));
+  }
+});
 // exp
 export default postStirve;

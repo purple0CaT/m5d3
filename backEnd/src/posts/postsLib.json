@@ -55,10 +55,10 @@
     "category": "ARTICLE CATEGORY",
     "title": "ARTICLE TITLE",
     "cover": "ARTICLE COVER (IMAGE LINK)",
-    "readTime": { "value": 2, "unit": "minute" },
+    "readTime": { "value": 2, "unit": "mmemm" },
     "author": { "name": "AUTHOR AVATAR NAME", "avatar": "AUTHOR AVATAR LINK" },
     "content": "HTML",
-    "_id": "5yua7cwaktljply7",
-    "createdAt": "2021-09-15T13:34:26.910Z"
+    "_id": "5yua7eh2ktlkf7ub",
+    "createdAt": "2021-09-15T13:54:21.682Z"
   }
 ]

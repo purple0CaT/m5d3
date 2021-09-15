@@ -19,7 +19,6 @@ class Blog extends Component {
       this.props.history.push("/404");
     }
   }
-
   render() {
     const { loading, blog } = this.state;
     if (loading) {
