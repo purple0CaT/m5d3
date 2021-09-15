@@ -1,2 +1,1 @@
-# m5d3
- 
+# Strive Blog Template
