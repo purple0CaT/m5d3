@@ -52,16 +52,6 @@
     "createdAt": "25 Nov 2020"
   },
   {
-    "category": "ARTICLE CATEGORY",
-    "title": "ARTICLE TITLE",
-    "cover": "ARTICLE COVER (IMAGE LINK)",
-    "readTime": { "value": 2, "unit": "mmemm" },
-    "author": { "name": "AUTHOR AVATAR NAME", "avatar": "AUTHOR AVATAR LINK" },
-    "content": "HTML",
-    "_id": "5yua7eh2ktlkf7ub",
-    "createdAt": "2021-09-15T13:54:21.682Z"
-  },
-  {
     "category": "Category3",
     "title": "Success post from front part",
     "cover": "https://source.unsplash.com/random",
@@ -73,5 +63,18 @@
     "content": "<p>This is created on frontEnd and saved in backend</p>",
     "_id": "5yua7em1ktlm94ob",
     "createdAt": "2021-09-15T14:45:36.874Z"
+  },
+  {
+    "category": "Category4",
+    "title": "Title it",
+    "cover": "https://source.unsplash.com/random",
+    "readTime": { "value": 1, "unit": "minutes" },
+    "author": {
+      "name": "Ian",
+      "avatar": "https://source.unsplash.com/random?1"
+    },
+    "content": "<p>This is created on frontEnd and saved in backend</p>",
+    "_id": "5yua7i1lktlnawvr",
+    "createdAt": "2021-09-15T15:14:59.702Z"
   }
 ]
