@@ -34,7 +34,6 @@ postStirve.get("/", getTitleMiddleware, (req, res, next) => {
         post.title.toLowerCase().includes(req.query.title.toLowerCase())
       );
       res.send(searchT);
-      console.log(req.query.title);
     } catch (error) {
       next(createHttpError(400, "Bad request"));
     }
@@ -52,7 +51,6 @@ postStirve.get("/:postId", getIdMiddleware, (req, res, next) => {
   try {
     const posts = getPost();
     const postFilter = posts.filter((post) => post._id == req.params.postId);
-    console.log(postFilter);
     res.status(200).send(postFilter);
   } catch (error) {
     next(createHttpError(400, "Bad request"));
