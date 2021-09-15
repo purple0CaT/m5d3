@@ -8,6 +8,7 @@ import {
   getIdMiddleware,
   postMiddleware,
   putMiddleware,
+  getTitleMiddleware,
 } from "./checkMiddleware.js";
 import uniqid from "uniqid";
 import { send } from "process";
@@ -23,13 +24,27 @@ const writePost = (content) =>
   fs.writeFileSync(postJson, JSON.stringify(content));
 console.log(postJson);
 //=
+
 //== GET
-postStirve.get("/", (req, res, next) => {
-  try {
-    const posts = getPost();
-    res.send(posts);
-  } catch (error) {
-    next(createHttpError(400, "Bad request"));
+postStirve.get("/", getTitleMiddleware, (req, res, next) => {
+  if (req.query.title && req.query) {
+    try {
+      const posts = getPost();
+      const searchT = posts.filter((post) =>
+        post.title.toLowerCase().includes(req.query.title.toLowerCase())
+      );
+      res.send(searchT);
+      console.log(req.query.title);
+    } catch (error) {
+      next(createHttpError(400, "Bad request"));
+    }
+  } else {
+    try {
+      const posts = getPost();
+      res.send(posts);
+    } catch (error) {
+      next(createHttpError(400, "Bad request"));
+    }
   }
 });
 //== GETby ID
