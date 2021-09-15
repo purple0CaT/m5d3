@@ -2,9 +2,14 @@ import express from "express";
 import cors from "cors";
 
 import listEndpoints from "express-list-endpoints";
-// import postStirve from "./posts/posts.js";
+import postStirve from "./posts/posts.js";
 import authorStrive from "./authors/authors.js";
-
+import {
+  genericErrHandl,
+  notFoundErrHandl,
+  forbiddenFoundErrHandl,
+  badreqFoundErrHandl,
+} from "./errorHandler.js";
 // === Server ===
 const server = express();
 const port = 3003;
@@ -15,6 +20,12 @@ server.use(cors());
 server.use(express.json());
 // ==== ROUTES / ENDPOINTS ====
 server.use("/authors", authorStrive);
-
+server.use("/posts", postStirve);
+// ERROR MIDDLEWARE
+server.use(badreqFoundErrHandl);
+server.use(notFoundErrHandl);
+server.use(forbiddenFoundErrHandl);
+server.use(genericErrHandl);
+// Listen
 server.listen(port, () => {});
 console.table(listEndpoints(server));
