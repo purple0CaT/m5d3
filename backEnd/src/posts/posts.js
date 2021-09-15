@@ -96,7 +96,7 @@ postStirve.put("/:postId", putMiddleware, postMiddleware, (req, res, next) => {
   }
 });
 // DELETE CHECKER
-postStirve.delete("/:postId", putMiddleware, (req, res, next) => {
+postStirve.delete("/:postId", getIdMiddleware, (req, res, next) => {
   try {
     const posts = getPost();
     const postFiltered = posts.filter((post) => post._id != req.params.postId);
