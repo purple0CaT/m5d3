@@ -9,16 +9,33 @@ class Blog extends Component {
     blog: {},
     loading: true,
   };
-  componentDidMount() {
-    const { id } = this.props.match.params;
-    console.log(posts);
-    const blog = posts.find((post) => post._id.toString() === id);
-    if (blog) {
-      this.setState({ blog, loading: false });
-    } else {
-      this.props.history.push("/404");
+  componentDidMount = () => {
+    this.fetchDatas();
+    // const { id } = this.props.match.params;
+    // console.log(posts);
+    // const blog = posts.find((post) => post._id.toString() === id);
+    // if (blog) {
+    //   this.setState({ blog, loading: false });
+    // } else {
+    //   this.props.history.push("/404");
+    // }
+  };
+  fetchDatas = async () => {
+    const url = "http://localhost:3003/blogPosts/" + this.props.match.params.id;
+    try {
+      let response = await fetch(url);
+      let data = await response.json();
+      if (response.ok) {
+        console.log(data);
+        this.setState({ ...this.state, blog: data });
+        this.setState({ ...this.state, loading: false });
+      } else {
+        console.log("Some error");
+      }
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
   render() {
     const { loading, blog } = this.state;
     if (loading) {
@@ -27,20 +44,20 @@ class Blog extends Component {
       return (
         <div className="blog-details-root">
           <Container>
-            <Image className="blog-details-cover" src={blog.cover} fluid />
-            <h1 className="blog-details-title">{blog.title}</h1>
+            <Image className="blog-details-cover" src={blog[0].cover} fluid />
+            <h1 className="blog-details-title">{blog[0].title}</h1>
 
             <div className="blog-details-container">
               <div className="blog-details-author">
-                <BlogAuthor {...blog.author} />
+                <BlogAuthor {...blog[0].author} />
               </div>
               <div className="blog-details-info">
-                <div>{blog.createdAt}</div>
-                <div>{`${blog.readTime.value} ${blog.readTime.unit} read`}</div>
+                <div>{blog[0].createdAt}</div>
+                <div>{`${blog[0].readTime.value} ${blog[0].readTime.unit} read`}</div>
               </div>
             </div>
 
-            <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
+            <div dangerouslySetInnerHTML={{ __html: blog[0].content }}></div>
           </Container>
         </div>
       );
