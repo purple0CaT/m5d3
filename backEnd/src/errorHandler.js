@@ -20,9 +20,5 @@ export const notFoundErrHandl = (err, req, res, next) => {
   }
 };
 export const genericErrHandl = (err, req, res, next) => {
-  if (err.status == 500) {
-    res.status(500).send(err.message);
-  } else {
-    next(err);
-  }
+  res.status(500).send("Generic Server Error");
 };
